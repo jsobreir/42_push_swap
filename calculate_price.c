@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   calculate_price.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/19 12:17:26 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/07/21 19:00:21 by jsobreir         ###   ########.fr       */
+/*   Created: 2024/07/21 18:55:55 by jsobreir          #+#    #+#             */
+/*   Updated: 2024/07/21 21:46:30 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*stack_args(t_stack *stack, char **argv)
+int	calculate_price(t_stack *a, t_stack *b, int	pos_a, int pos_b)
 {
-	argv++;
-	while (*argv)
-	{
-		ft_stackadd_back(&stack, ft_newstack(ft_atoi(*argv)));
-		argv++;
-	}
-	return (stack);
-}
+	int	a_len;
+	int	b_len;
+	int	price;
 
-int	stack_len(t_stack *stack)
-{
-	int	counter;
-
-	counter = 0;
-	while (stack != NULL)
-	{
-		counter++;
-		stack = stack->next;
-	}
-	return (counter);
+	price = 0;
+	a_len = stack_len(a);
+	b_len = stack_len(b);
+	if (pos_a <= a_len / 2)
+		price += pos_a;
+	else
+		price += a_len - pos_a;
+	if (pos_b <= b_len / 2)
+		price += b_len;
+	else
+		price += b_len - pos_b;
+	return (price);
 }

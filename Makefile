@@ -2,7 +2,7 @@ LIBFT_DIR = libft
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = push_swap.c utils.c moves.c stack.c
+SRC = push_swap.c utils.c moves.c stack.c calculate_price.c
 
 OBJ = $(SRC:.c=.o)
 

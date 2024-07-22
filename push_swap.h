@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:16:09 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/07/21 19:01:50 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:54:47 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_swap(t_stack *stack);
 void 	ft_push(t_stack **from, t_stack **to);
 void	ft_rotate(t_stack **stack);
 void	ft_reverse_rotate(t_stack **stack);
+void	move_largest(t_stack *b);
 int		stack_len(t_stack *stack);
 int		calculate_price(t_stack *a, t_stack *b, int	pos_a, int pos_b);
 

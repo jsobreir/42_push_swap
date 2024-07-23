@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:17:26 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/07/21 19:00:21 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:30:40 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ t_stack	*stack_args(t_stack *stack, char **argv)
 int	stack_len(t_stack *stack)
 {
 	int	counter;
+	t_stack *temp;
 
+	temp = stack;
 	counter = 0;
-	while (stack != NULL)
+	while (temp != NULL)
 	{
 		counter++;
-		stack = stack->next;
+		temp = temp->next;
 	}
 	return (counter);
 }

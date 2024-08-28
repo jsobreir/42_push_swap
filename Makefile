@@ -37,4 +37,16 @@ fclean: clean
 
 re: fclean all
 
+download:
+	@wget https://cdn.intra.42.fr/document/document/25705/checker_linux && chmod 777 checker_linux
+
+visualizer:
+	git clone https://github.com/o-reo/push_swap_visualizer.git && \
+	cd push_swap_visualizer && \
+	mkdir build && \
+	cd build && \
+	cmake .. && \
+	make && \
+	./bin/visualizer
+
 .PHONY: all re clean fclean

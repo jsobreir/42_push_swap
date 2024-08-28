@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:55:55 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/07/22 15:12:10 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:03:12 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	calculate_price(t_stack *a, t_stack *b, int	pos_a, int pos_b)
 	int	b_len;
 	int	price;
 
-	price = 0;
+	price = 1;
 	a_len = stack_len(a);
 	b_len = stack_len(b);
 	if (pos_a <= a_len / 2)
@@ -26,7 +26,7 @@ int	calculate_price(t_stack *a, t_stack *b, int	pos_a, int pos_b)
 	else
 		price += a_len - pos_a;
 	if (pos_b <= b_len / 2)
-		price += b_len;
+		price += pos_b;
 	else
 		price += b_len - pos_b;
 	return (price);

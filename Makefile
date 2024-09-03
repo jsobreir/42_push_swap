@@ -2,7 +2,7 @@ LIBFT_DIR = libft
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = push_swap.c utils.c moves.c stack.c calculate_price.c
+SRC = push_swap.c utils.c moves.c stack.c sorter.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -25,7 +25,7 @@ $(NAME): $(LIBFT) $(OBJ)
 	$(CC) -g -Wall -Wextra -Werror -c  $< -o $@
 
 $(LIBFT):
-	$(MAKE_BONUS) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	rm -rf $(OBJ)

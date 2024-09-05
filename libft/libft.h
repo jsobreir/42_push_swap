@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 10:20:00 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/07/17 22:11:23 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:52:32 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef struct s_list
 {
 	void				*content;
-	struct s_list	*next;
+	struct s_list		*next;
 }	t_list;
 
 // Part 1 //

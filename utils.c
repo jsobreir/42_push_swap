@@ -6,86 +6,83 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:17:26 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/02 12:28:32 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:57:05 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*stack_args(t_stack *stack, char **argv)
+t_stack	*stack_args(t_stack *stack, char **argv, int argc)
 {
-	argv++;
+	char	*temp;
+
+	if (argc == 2)
+		argv = ft_split(argv[1], ' ');
+	else
+		argv++;
 	while (*argv)
 	{
+		temp = *argv;
+		while (*temp)
+		{
+			if (*temp < '0' || *temp > '9')
+			{
+				ft_putstr_fd("Error\n", 1);
+				exit(EXIT_FAILURE);
+			}
+			temp++;
+		}
 		ft_stackadd_back(&stack, ft_newstack(ft_atoi(*argv)));
 		argv++;
 	}
 	return (stack);
 }
 
-int	stack_len(t_stack *stack)
+void	init_stacks(t_stack *stack_a, t_stack *stack_b)
 {
-	int	counter;
-
-	counter = 0;
-	while (stack != NULL)
+	stack_a = malloc(sizeof(t_stack *));
+	if (!stack_a)
+		return ;
+	stack_b = malloc(sizeof(t_stack *));
+	if (!stack_b)
 	{
-		counter++;
-		stack = stack->next;
+		free(stack_a);
+		return ;
 	}
-	return (counter);
 }
 
-int	stack_largest(t_stack *stack)
+void	move_largest(t_stack **b)
 {
-	int	index;
-	int	number;
-	int	i;
+	int	largest_number;
 
-	i = 0;
-	index = 0;
-	number = stack->nbr;
-	while (stack != NULL)
+	largest_number = stack_largest(*b);
+	if (largest_number <= stack_len(*b) / 2)
+		while (largest_number--)
+			ft_rotate(b, 'b');
+	else
 	{
-		if (stack->nbr > number)
+		while (largest_number < stack_len(*b))
 		{
-			number = stack->nbr;
-			index = i;
+			ft_reverse_rotate(b, 'b');
+			largest_number++;
 		}
-		stack = stack->next;
-		i++;
 	}
-	return (index);
 }
 
-int	stack_smallest(t_stack *stack)
+void	move_smallest(t_stack **b)
 {
-	int	index;
-	int	number;
-	int	i;
+	int	smallest_number;
 
-	i = 0;
-	index = 0;
-	number = stack->nbr;
-	while (stack != NULL)
+	smallest_number = stack_smallest(*b);
+	if (smallest_number <= stack_len(*b) / 2)
+		while (smallest_number--)
+			ft_rotate(b, 'a');
+	else
 	{
-		if (stack->nbr < number)
+		while (smallest_number < stack_len(*b))
 		{
-			number = stack->nbr;
-			index = i;
+			ft_reverse_rotate(b, 'a');
+			smallest_number++;
 		}
-		stack = stack->next;
-		i++;
 	}
-	return (index);
-}
-
-int	stack_get_index(t_stack *stack, int index)
-{
-	while (index > 0)
-	{
-		stack = stack->next;
-		index--;
-	}
-	return (stack->nbr);
 }

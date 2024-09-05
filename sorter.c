@@ -6,13 +6,13 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:55:55 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/03 14:41:54 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:03:48 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	calculate_price(t_stack *a, t_stack *b, int	pos_a, int pos_b)
+int	calculate_price(t_stack *a, t_stack *b, int pos_a, int pos_b)
 {
 	int	a_len;
 	int	b_len;
@@ -32,64 +32,57 @@ int	calculate_price(t_stack *a, t_stack *b, int	pos_a, int pos_b)
 	return (price);
 }
 
-static void	ft_rotate_comb(t_stack **a, t_stack **b, int *pos_a, int *pos_b)
+void	sort_three(t_stack **stack)
 {
-	while (*pos_a > 0 && *pos_b > 0 && *pos_a < stack_len(*a) && *pos_b < stack_len(*b))
+	int	a;
+	int	b;
+	int	c;
+
+	a = (*stack)->nbr;
+	b = (*stack)->next->nbr;
+	c = (*stack)->next->next->nbr;
+	if ((a <= b && b < c) || (a < b && b <= c))
+		return ;
+	else if ((a > b && b > c) || (a > b && b >= c))
 	{
-		if (*pos_a <= stack_len(*a) / 2 && *pos_b <= stack_len(*b) / 2)
-		{
-			ft_rotate(a);
-			ft_rotate(b);
-			ft_printf("rr\n");
-			(*pos_a)--;
-			(*pos_b)--;
-		}
-		else if (*pos_a > stack_len(*a) / 2 && *pos_b > stack_len(*b) / 2)
-		{
-			ft_reverse_rotate(a);
-			ft_reverse_rotate(b);
-			ft_printf("rrr\n");
-			(*pos_a)++;
-			(*pos_b)++;
-		}
-		else
-			break;
+		ft_swap(*stack, 'a');
+		ft_reverse_rotate(stack, 'a');
 	}
+	else if ((a >= c && c > b) || (a > c && c >= b))
+		ft_rotate(stack, 'a');
+	else if ((b > a && a > c) || (b > a && a > c) || (a == b && b > c))
+		ft_reverse_rotate(stack, 'a');
+	else if ((b >= c && c > a) || (b > c && c >= a))
+	{
+		ft_swap(*stack, 'a');
+		ft_rotate(stack, 'a');
+	}
+	else if ((c >= a && a > b) || (c > a && a >= b))
+		ft_swap(*stack, 'a');
 }
 
-void	move(t_stack **a, t_stack **b, int pos_a, int pos_b)
+void	edge_cases(t_stack *a, t_stack *b)
 {
-	ft_rotate_comb(a, b, &pos_a, &pos_b);
-	while (pos_a > 0 && pos_a < stack_len(*a))
+	if (stack_len(a) == 1)
+		exit(EXIT_SUCCESS);
+	if (stack_len(a) == 3)
+		sort_three(&a);
+	else if (stack_len(a) == 4)
 	{
-		if (pos_a <= stack_len(*a) / 2)
-		{
-			ft_rotate(a);
-			ft_printf("ra\n");
-			pos_a--;
-		}
-		else
-		{
-			ft_reverse_rotate(a);
-			ft_printf("rra\n");
-			pos_a++;
-		}
+		ft_push(&a, &b, 'b');
+		sort_three(&a);
+		pushback_to_a(&a, &b);
+		move_smallest(&a);
 	}
-	while (pos_b > 0 && pos_b < stack_len(*b))
+	else if (stack_len(a) == 5)
 	{
-		if (pos_b <= stack_len(*b) / 2)
-		{
-			ft_rotate(b);
-			ft_printf("rb\n");
-			pos_b--;
-		}
-		else
-		{
-			ft_reverse_rotate(b);
-			ft_printf("rrb\n");
-			pos_b++;
-		}
+		ft_push(&a, &b, 'b');
+		ft_push(&a, &b, 'b');
+		sort_three(&a);
+		pushback_to_a(&a, &b);
+		move_smallest(&a);
 	}
-	ft_push(a, b);
-	ft_printf("pb\n");
+	else if (stack_len(a) == 2 && a->nbr > a->next->nbr)
+		ft_swap(a, 'a');
+	exit(EXIT_SUCCESS);
 }

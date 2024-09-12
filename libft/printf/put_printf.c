@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:28:14 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/07/04 16:50:25 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:26:43 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,35 +72,6 @@ int	ft_putunsignednbr(unsigned int nbr)
 	{
 		nbr += '0';
 		len += write(1, &nbr, 1);
-	}
-	return (len);
-}
-
-int	ft_putfloat(double number, int precision)
-{
-	int		int_part;
-	double	frac_part;
-	int		len;
-	int		digit;
-	char	c;
-
-	len = 0;
-	if (number < 0)
-	{
-		number *= -1;
-		len += write(1, "-", 1);
-	}
-	int_part = (int)number;
-	frac_part = number - int_part;
-	len += ft_putnbr(int_part);
-	len += write(1, ".", 1);
-	while (precision-- && precision > 0)
-	{
-		frac_part *= 10;
-		digit = (int)frac_part;
-		c = digit + '0';
-		len += write(1, &c, 1);
-		frac_part -= digit;
 	}
 	return (len);
 }

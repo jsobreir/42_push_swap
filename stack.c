@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:29:33 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/07/19 15:17:58 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:34:13 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_stack	*ft_newstack(int nbr)
 
 t_stack	*ft_stackadd_front(t_stack **stack, t_stack *new)
 {
+	if (!new)
+		return (NULL);
 	if (stack == NULL)
 		return (NULL);
 	if (*stack == NULL)
@@ -45,6 +47,8 @@ t_stack	*ft_stackadd_back(t_stack **stack, t_stack *new)
 {
 	t_stack	*last;
 
+	if (!new)
+		return (NULL);
 	if (stack == NULL)
 		return (NULL);
 	if (*stack == NULL)
@@ -70,17 +74,19 @@ t_stack	*ft_stacklast(t_stack *stack)
 	return (stack);
 }
 
-void	ft_stackclear(t_stack *stack)
+void	ft_stackclear(t_stack **stack)
 {
 	t_stack	*temp;
 
-	if (!stack)
-		return ;
-	while (stack != NULL)
+	if (!stack || !(*stack))
 	{
-		temp = stack;
-		stack = stack->next;
+		return ;
+	}
+	while (*stack != NULL)
+	{
+		temp = *stack;
+		*stack = (*stack)->next;
 		free(temp);
 	}
-	stack = NULL;
+	*stack = NULL;
 }

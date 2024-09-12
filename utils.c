@@ -6,49 +6,73 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:17:26 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/04 19:57:05 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:09:32 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*stack_args(t_stack *stack, char **argv, int argc)
+void	error(char **args, int argc)
 {
-	char	*temp;
-
+	ft_putstr_fd("Error\n", 1);
 	if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	else
-		argv++;
-	while (*argv)
-	{
-		temp = *argv;
-		while (*temp)
-		{
-			if (*temp < '0' || *temp > '9')
-			{
-				ft_putstr_fd("Error\n", 1);
-				exit(EXIT_FAILURE);
-			}
-			temp++;
-		}
-		ft_stackadd_back(&stack, ft_newstack(ft_atoi(*argv)));
-		argv++;
-	}
-	return (stack);
+		ft_free_array(args);
+	exit(EXIT_FAILURE);
 }
 
-void	init_stacks(t_stack *stack_a, t_stack *stack_b)
+static void	check_args(char **args, int argc)
 {
-	stack_a = malloc(sizeof(t_stack *));
-	if (!stack_a)
-		return ;
-	stack_b = malloc(sizeof(t_stack *));
-	if (!stack_b)
+	long	num;
+	int		len;
+	char	*current_arg;
+	char	**temp;
+
+	len = 0;
+	temp = args;
+	while (*args)
 	{
-		free(stack_a);
-		return ;
+		num = ft_atol(*args);
+		if (num < INT_MIN || num > INT_MAX)
+			error(temp, argc);
+		current_arg = *args;
+		if (*current_arg == '-' || *current_arg == '+')
+			current_arg++;
+		while (*current_arg)
+		{
+			if (*current_arg < '0' || *current_arg > '9')
+				error(temp, argc);
+			current_arg++;
+		}
+		args++;
+		len++;
 	}
+	check_duplicated(argc, temp);
+}
+
+t_stack	*stack_args(t_stack *stack, char **argv, int argc)
+{
+	char		**args;
+	char		**temp;
+
+	if (argc == 2)
+	{
+		args = ft_split(argv[1], ' ');
+		if (!args)
+			return (NULL);
+		temp = args;
+	}
+	else
+		args = argv + 1;
+	check_args(args, argc);
+	while (*args)
+	{
+		if (!ft_stackadd_back(&stack, ft_newstack(ft_atoi(*args))))
+			return (ft_stackclear(&stack), NULL);
+		args++;
+	}
+	if (argc == 2)
+		ft_free_array(temp);
+	return (stack);
 }
 
 void	move_largest(t_stack **b)

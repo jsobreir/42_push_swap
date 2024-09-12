@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:16:09 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/05 11:58:54 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:08:41 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include <unistd.h>
+# include <limits.h>
 # include "./libft/libft.h"
 
 typedef struct s_stack
@@ -23,13 +24,13 @@ typedef struct s_stack
 }	t_stack;
 
 // Stack manipulation functions - stack.c
-t_stack	*stack_args(t_stack *stack, char **argv, int argc);
+void	ft_stackclear(t_stack **stack);
 t_stack	*ft_newstack(int nbr);
 t_stack	*ft_stacklast(t_stack *stack);
 t_stack	*ft_stackadd_front(t_stack **stack, t_stack *new);
 t_stack	*ft_stackadd_back(t_stack **stack, t_stack *new);
+
 // Stack moves functions - basic_moves.c
-void	ft_stackclear(t_stack *stack);
 void	ft_swap(t_stack *stack, char select);
 void	ft_push(t_stack **from, t_stack **to, char to_select);
 void	ft_rotate(t_stack **stack, char select);
@@ -52,5 +53,7 @@ void	edge_cases(t_stack *a, t_stack *b);
 // Utils
 t_stack	*stack_args(t_stack *stack, char **argv, int argc);
 void	init_stacks(t_stack *stack_a, t_stack *stack_b);
+int		check_duplicated(int argc, char **argv);
+void	error(char **args, int argc);
 
 #endif

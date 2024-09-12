@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 17:28:43 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/05/06 16:25:00 by jsobreir         ###   ########.fr       */
+/*   Created: 2024/09/09 10:33:14 by jsobreir          #+#    #+#             */
+/*   Updated: 2024/09/10 15:54:42 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "stdarg.h"
-# include <unistd.h>
-# include <stdio.h>
+void	ft_free_array(char **array)
+{
+	int	size;
 
-int		ft_printf(const char *format, ...);
-int		ft_putchar(char c);
-int		ft_putstr(char *str);
-int		ft_putnbr(int nbr);
-int		ft_putpointer(unsigned long nbr);
-int		ft_puthexadecimal(unsigned long nbr, char *base);
-int		ft_putunsignednbr(unsigned int nbr);
-
-#endif
+	size = 0;
+	if (!array || *array == NULL)
+		return ;
+	while (array[size])
+	{
+		free(array[size]);
+		size++;
+	}
+	free(array);
+	return ;
+}

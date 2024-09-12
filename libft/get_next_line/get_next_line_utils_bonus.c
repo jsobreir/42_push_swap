@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:56:45 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/06/28 13:41:59 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:15:14 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_strchr_gnl(char *str, char c)
 	return (NULL);
 }
 
-char	*ft_strjoin_gnl(char *dest, char *src)
+char	*ft_strjoin(char *dest, char *src)
 {
 	char	*temp;
 	char	*dest_temp;

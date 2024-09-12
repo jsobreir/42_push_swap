@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:56:03 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/04 19:55:13 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:17:47 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ void	ft_swap(t_stack *stack, char select)
 void	ft_push(t_stack **from, t_stack **to, char to_select)
 {
 	t_stack	*to_free;
+	t_stack	*new_node;
 
 	if (*from == NULL)
 		return ;
-	ft_stackadd_front(to, ft_newstack((*from)->nbr));
+	new_node = ft_newstack((*from)->nbr);
+	ft_stackadd_front(to, new_node);
 	to_free = *from;
 	*from = (*from)->next;
 	free(to_free);

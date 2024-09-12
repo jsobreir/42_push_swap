@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 10:20:00 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/04 19:52:32 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:48:13 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 typedef struct s_list
 {
-	void				*content;
-	struct s_list		*next;
+	void			*content;
+	struct s_list	*next;
 }	t_list;
 
 // Part 1 //
@@ -74,5 +74,10 @@ void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
+
+// Extra Functions that I found useful to add //
+void		ft_free_array(char **array);
+int			ft_array_size(char **array);
+long		ft_atol(char *nptr);
 
 #endif

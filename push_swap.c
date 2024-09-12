@@ -6,11 +6,51 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:16:01 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/04 19:53:53 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:08:11 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	check_duplicated(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < argc - 1)
+	{
+		j = i + 1;
+		while (j < argc - 1)
+		{
+			if (ft_atoi(argv[i]) == ft_atoi(argv[j]))
+				error(argv, argc);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+static void	check_ordered(t_stack **a)
+{
+	t_stack	*temp;
+
+	temp = *a;
+	while (temp->next)
+	{
+		if (temp->nbr > temp->next->nbr)
+		{
+			break ;
+		}
+		temp = temp->next;
+	}
+	if (temp->next == NULL)
+	{
+		ft_stackclear(a);
+		exit(EXIT_SUCCESS);
+	}
+}
 
 int	target_in_b(t_stack *a, t_stack *b, int a_lowest_index)
 {
@@ -73,13 +113,16 @@ int	main(int argc, char **argv)
 	t_stack	*a;
 	t_stack	*b;
 
-	if (argc < 2)
+	if (argc < 2 || *argv[1] == '\0')
 		return (0);
 	a = NULL;
 	b = NULL;
-	init_stacks(a, b);
 	a = stack_args(a, argv, argc);
-	edge_cases(a, b);
+	if (!a)
+		exit(EXIT_FAILURE);
+	check_ordered(&a);
+	if (stack_len(a) <= 5)
+		edge_cases(a, b);
 	ft_push(&a, &b, 'b');
 	ft_push(&a, &b, 'b');
 	if (b->next->nbr > b->nbr)
@@ -89,4 +132,6 @@ int	main(int argc, char **argv)
 	move_largest(&b);
 	pushback_to_a(&a, &b);
 	move_smallest(&a);
+	ft_stackclear(&a);
+	ft_stackclear(&b);
 }

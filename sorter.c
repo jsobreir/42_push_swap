@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:55:55 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/04 20:03:48 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:07:02 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	sort_three(t_stack **stack)
 
 void	edge_cases(t_stack *a, t_stack *b)
 {
-	if (stack_len(a) == 1)
-		exit(EXIT_SUCCESS);
 	if (stack_len(a) == 3)
+	{
 		sort_three(&a);
+	}
 	else if (stack_len(a) == 4)
 	{
 		ft_push(&a, &b, 'b');
@@ -84,5 +84,7 @@ void	edge_cases(t_stack *a, t_stack *b)
 	}
 	else if (stack_len(a) == 2 && a->nbr > a->next->nbr)
 		ft_swap(a, 'a');
+	ft_stackclear(&a);
+	ft_stackclear(&b);
 	exit(EXIT_SUCCESS);
 }

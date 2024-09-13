@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 12:17:26 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/11 19:09:32 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:15:25 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ t_stack	*stack_args(t_stack *stack, char **argv, int argc)
 	if (argc == 2)
 	{
 		args = ft_split(argv[1], ' ');
-		if (!args)
+		if (!args[0])
+		{
+			ft_free_array(args);
 			return (NULL);
+		}
 		temp = args;
 	}
 	else

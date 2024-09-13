@@ -6,7 +6,7 @@
 /*   By: jsobreir <jsobreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:33:14 by jsobreir          #+#    #+#             */
-/*   Updated: 2024/09/10 15:54:42 by jsobreir         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:15:35 by jsobreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_array(char **array)
 	int	size;
 
 	size = 0;
-	if (!array || *array == NULL)
+	if (!array && *array == NULL)
 		return ;
 	while (array[size])
 	{

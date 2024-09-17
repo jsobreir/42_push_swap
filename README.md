@@ -21,7 +21,7 @@ This program orders a stack of numbers passed as parameters using a set of allow
 | rrr       | rra and rrb at the same time.                                                 |
 
 ## Installing and Using
-To download, clone the repository into your device and navigate inside using `cd pipex`, then typing  `make` to compile all the functions and generate the executable pipex, which you can run as follows:
+To download, clone the repository into your device and navigate inside using `cd push_swap`, then typing  `make` to compile all the functions and generate the executable push_swap, which you can run as follows:
 
 ```
 ./push_swap 10 1 3 4 33 54 23 

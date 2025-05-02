@@ -7,10 +7,10 @@ interact with each other.
 It’s always beneficial to understand these protocols.
 
 ## Documentation
-## Project Goals and Rules
+## Project Goals and Requirements
 The goal is to develop an IRC server using only C++98 standard. The goal is not to develop an IRC client or implementing server-to-server communication.
 
-## Requirements
+### Requirements
 - The server must handle multiple clients simultaneously;
 - No use of forking, and all I/O operations must be non-blocking;
 - Only one poll() (or equivalent);

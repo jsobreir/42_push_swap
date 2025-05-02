@@ -48,13 +48,3 @@ to connect to your server.
 
 ## Project Implementation
 ### Parsing
-
-
-## Disclaimer
-At 42 School our projects have to adhere to the 42 Norm of coding standards and good practices. These include:
-- Maximum 25 lines per function and 5 functions per file;
-- No variable declarations and assignments in the same line;
-- Forbiden structures: `for`, `switch`, `goto` and `case`;
-- No more than 5 variables per function.
-
-All of my projects strictly adhere to this Norm, that promotes code simplicity and readability.

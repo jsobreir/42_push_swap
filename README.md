@@ -1,50 +1,59 @@
 # Push_swap
-<p style="text-align:center;">This project is about creating your own IRC server.</p>
+<p style="text-align:center;">Because Swap_push isn’t as natural.</p>
 
-You will use an actual IRC client to connect to your server and test it.
-The Internet is governed by solid standard protocols that allow connected computers to
-interact with each other.
-It’s always beneficial to understand these protocols.
+The goal of this project is to create an algorithm capable of ordering a Stack of numbers, using a restricted set of operations.
 
 ## Documentation
-## Project Goals and Requirements
-The goal is to develop an IRC server using only C++98 standard. The goal is not to develop an IRC client or implementing server-to-server communication.
-
-### Requirements
-- The server must handle multiple clients simultaneously;
-- No use of forking, and all I/O operations must be non-blocking;
-- Only one poll() (or equivalent);
-- A client at our choice will be used to connect to the server via TCP/IP (v4 or v6);
-- Shall be able to authenticate, set a nickname, a username, join a channel,
-send and receive private messages using your reference client;
-- All the messages sent from one client to a channel shall be forwarded to
-every other client that joined the channel;
-- Shall distinguish between regular users and operators;
-- Shall implement the following commands:
-∗ KICK - Eject a client from the channel
-∗ INVITE - Invite a client to a channel
-∗ TOPIC - Change or view the channel topic
-∗ MODE - Change the channel’s mode:
-· i: Set/remove Invite-only channel
-· t: Set/remove the restrictions of the TOPIC command to channel
-operators
-· k: Set/remove the channel key (password)
-5
-ft_irc Internet Relay Chat
-· o: Give/take channel operator privilege
-· l: Set/remove the user limit to channel
+## Project Goals and Rules
+This program orders a stack of numbers passed as parameters using a set of allowed operations:
+| Operation | Description                                                                 |
+|-----------|-----------------------------------------------------------------------------|
+| sa        | Swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements. |
+| sb        | Swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements. |
+| ss        | sa and sb at the same time.                                                   |
+| pa        | Take the first element at the top of b and put it at the top of a. Do nothing if b is empty. |
+| pb        | Take the first element at the top of a and put it at the top of b. Do nothing if a is empty. |
+| ra        | Shift up all elements of stack a by 1. The first element becomes the last one. |
+| rb        | Shift up all elements of stack b by 1. The first element becomes the last one. |
+| rr        | ra and rb at the same time.                                                   |
+| rra       | Shift down all elements of stack a by 1. The last element becomes the first one. |
+| rrb       | Shift down all elements of stack b by 1. The last element becomes the first one. |
+| rrr       | rra and rrb at the same time.                                                 |
 
 ## Installing and Using
 To download, clone the repository into your device and navigate inside using `cd push_swap`, then typing  `make` to compile all the functions and generate the executable push_swap, which you can run as follows:
 
 ```
-./ircserv <port> <password>
+./push_swap 10 1 3 4 33 54 23 
 ```
-where,
-- port: The port number on which your IRC server will be listening for incoming
-IRC connections.
-- password: The connection password. It will be needed by any IRC client that tries
-to connect to your server.
+You can use any list of ints you want. The program should be able to order them accordingly, returning the steps required for that.
 
 ## Project Implementation
 ### Parsing
+The program is capable of parsing the numbers given as parameters, either passed as plain numbers or in a single parameter such as `./push_swap "10 1 3 4 33 54 23"`.
+### Stacking
+The program uses lists to stack the numbers. It creates two stacks: stack A and stack B. Stack A is where the original numbers are innitially passed to. Stack B is the stack used to perform the operations to organize the numbers.
+The stacks are defined as follows:
+```
+typedef struct s_stack
+{
+	int				nbr;
+	struct s_stack	*next;
+}	t_stack;
+```
+
+Each node of the list holds a number and a pointer to the next node, which containes the following number on the stack.
+To perform the operations I had to write functions that manipulate these lists: `ft_stackaddback`, `ft_stackaddfront`, `ft_stackclear` and `ft_stacklast`, as well as functions that manipulate the stacks: `ft_swap`, `ft_rotate`, `ft_reverse_rotate`, `ft_push`.
+### The algorithm
+The algorithm is the most interesting part of the project. The goal here is to write an algorithm that sorts the numbers the fastest way possible. The criteria is that if it sorts 500 numbers with less than 5500 operations, the project is attributed maximum score.
+To choose the algorithm I was going to use I read about different sorts of algorithms. The ones that stood out were the Radix algorithm and another one called the 'Turkish Algorithm' which was invented by a fellow 42 Student for this project.
+My project is based on [this](https://medium.com/@ayogun/push-swap-c1f5d2d41e97) algorithm. Essentially, it works by pre-calculating the price of each move (e.g., the number of moves needed to move a number from Stack A to B) before actually making the move. This method is very efficient for this project as it always ensures the cheapest move is made.
+
+## Disclaimer
+At 42 School our projects have to adhere to the 42 Norm of coding standards and good practices. These include:
+- Maximum 25 lines per function and 5 functions per file;
+- No variable declarations and assignments in the same line;
+- Forbiden structures: `for`, `switch`, `goto` and `case`;
+- No more than 5 variables per function.
+
+All of my projects strictly adhere to this Norm, that promotes code simplicity and readability.
